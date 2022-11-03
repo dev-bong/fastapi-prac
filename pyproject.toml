@@ -10,6 +10,7 @@ packages = [{include = "fastapi_prac"}]
 python = "^3.10"
 fastapi = "^0.85.2"
 uvicorn = "^0.19.0"
+black = "^22.10.0"
 
 
 [build-system]
