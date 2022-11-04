@@ -1,13 +1,16 @@
-import os
+import models
+from env_inform import FRONT_URL
 
 from fastapi import FastAPI
 from starlette.middleware.cors import CORSMiddleware
+from database import engine
+from domain.Post import post_router
 
 app = FastAPI()
-front_url = os.environ.get("EXTERNAL_FRONT_URL", "http://127.0.0.1:5173")
+models.Base.metadata.create_all(bind=engine)
 
 origins = [
-    front_url,
+    FRONT_URL,
 ]
 
 app.add_middleware(
@@ -19,6 +22,4 @@ app.add_middleware(
 )
 
 
-@app.get("/hello")
-async def root():
-    return {"message": "Test msg"}
+app.include_router(post_router.router)
