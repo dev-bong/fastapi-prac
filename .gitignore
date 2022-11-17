@@ -6,6 +6,8 @@
 *.exe
 *test.py
 *gitmessage.txt
+migrations
+alembic.ini
 
 __pycache__
 
