@@ -1,13 +1,13 @@
-import models
+# import models
 from env_inform import FRONT_URL
 
 from fastapi import FastAPI
 from starlette.middleware.cors import CORSMiddleware
-from database import engine
+# from database import engine
 from domain.Post import post_router
 
 app = FastAPI()
-models.Base.metadata.create_all(bind=engine)
+#models.Base.metadata.create_all(bind=engine)
 
 origins = [
     FRONT_URL,
