@@ -3,6 +3,7 @@ from sqlalchemy.orm import relationship
 
 from database import Base
 
+
 class Post(Base):
     __tablename__ = "post"
 
@@ -10,6 +11,7 @@ class Post(Base):
     subject = Column(String, nullable=False)
     content = Column(Text, nullable=False)
     create_date = Column(DateTime, nullable=False)
+
 
 class Comment(Base):
     __tablename__ = "comment"

@@ -2,6 +2,7 @@ import datetime
 
 from pydantic import BaseModel, validator
 
+
 class CommentCreate(BaseModel):
     content: str
 
@@ -14,7 +15,7 @@ class CommentCreate(BaseModel):
 
 class Comment(BaseModel):
     id: int
-    content:str
+    content: str
     create_date: datetime.datetime
 
     class Config:
