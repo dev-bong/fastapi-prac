@@ -12,7 +12,7 @@ router = APIRouter(
 
 @router.get("/list", response_model=post_schema.PostList)
 def post_list(db: Session = Depends(get_db), page: int = 0, size: int = 10):
-    total, _post_list = post_crud.get_post_list(db, skip=page * size, limit=size)
+    total, _post_list = post_crud.get_post_list(db, skip=page, limit=size)
     return {"total": total, "post_list": _post_list}
 
 
