@@ -21,3 +21,10 @@ class Comment(Base):
     create_date = Column(DateTime, nullable=False)
     post_id = Column(Integer, ForeignKey("post.id"))
     post = relationship("Post", backref="comments")
+
+class User(Base):
+    __tablename__ = "user"
+
+    id = Column(Integer, primary_key=True)
+    username = Column(String, unique=True, nullable=False)
+    password = Column(String, nullable=False)
