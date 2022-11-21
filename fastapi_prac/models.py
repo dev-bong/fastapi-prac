@@ -11,6 +11,8 @@ class Post(Base):
     subject = Column(String, nullable=False)
     content = Column(Text, nullable=False)
     create_date = Column(DateTime, nullable=False)
+    user_id = Column(Integer, ForeignKey("user.id"), nullable=True)
+    user = relationship("User", backref="post_users")
 
 
 class Comment(Base):
@@ -21,6 +23,8 @@ class Comment(Base):
     create_date = Column(DateTime, nullable=False)
     post_id = Column(Integer, ForeignKey("post.id"))
     post = relationship("Post", backref="comments")
+    user_id = Column(Integer, ForeignKey("user.id"), nullable=True)
+    user = relationship("User", backref="comment_users")
 
 class User(Base):
     __tablename__ = "user"
