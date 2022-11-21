@@ -2,7 +2,7 @@ from datetime import datetime
 from datetime import timedelta
 
 from domain.Post.post_schema import PostCreate
-from models import Post
+from models import Post, User
 from sqlalchemy.orm import Session
 
 
@@ -31,11 +31,12 @@ def get_post(db: Session, post_id: int, just_get=False):
     return post
 
 
-def create_post(db: Session, post_create: PostCreate):
+def create_post(db: Session, post_create: PostCreate, user: User):
     db_post = Post(
         subject=post_create.subject,
         content=post_create.content,
         create_date=datetime.utcnow(),
+        user=user,
     )
     db.add(db_post)
     db.commit()

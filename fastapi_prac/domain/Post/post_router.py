@@ -4,6 +4,8 @@ from starlette import status
 
 from database import get_db
 from domain.Post import post_schema, post_crud
+from domain.User.user_router import get_current_user
+from models import User
 
 router = APIRouter(
     prefix="/api/post",
@@ -23,5 +25,9 @@ def post_detail(post_id: int, db: Session = Depends(get_db)):
 
 
 @router.post("/create", status_code=status.HTTP_204_NO_CONTENT)
-def post_create(_post_create: post_schema.PostCreate, db: Session = Depends(get_db)):
-    post_crud.create_post(db=db, post_create=_post_create)
+def post_create(
+    _post_create: post_schema.PostCreate,
+    db: Session = Depends(get_db),
+    current_user: User = Depends(get_current_user),
+):
+    post_crud.create_post(db=db, post_create=_post_create, user=current_user)
