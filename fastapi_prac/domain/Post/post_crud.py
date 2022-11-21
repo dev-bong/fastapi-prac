@@ -10,7 +10,6 @@ def get_post_list(db: Session, skip: int = 0, limit: int = 10):
     _post_list = db.query(Post).order_by(Post.create_date.desc()).all()
 
     total = len(_post_list)
-    #post_list = _post_list.offset(skip).limit(limit).all()
     post_list = _post_list[skip * limit : (skip + 1) * limit]
 
     # 한국 시차 적용

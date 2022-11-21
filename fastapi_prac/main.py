@@ -7,6 +7,7 @@ from starlette.middleware.cors import CORSMiddleware
 # from database import engine
 from domain.Post import post_router
 from domain.Comment import comment_router
+from domain.User import user_router
 
 app = FastAPI()
 # models.Base.metadata.create_all(bind=engine)
@@ -26,3 +27,4 @@ app.add_middleware(
 
 app.include_router(post_router.router)
 app.include_router(comment_router.router)
+app.include_router(user_router.router)
