@@ -6,14 +6,18 @@ from models import Post
 from sqlalchemy.orm import Session
 
 
-def get_post_list(db: Session):
-    post_list = db.query(Post).order_by(Post.create_date.desc()).all()
+def get_post_list(db: Session, skip: int = 0, limit: int = 10):
+    _post_list = db.query(Post).order_by(Post.create_date.desc()).all()
+
+    total = len(_post_list)
+    #post_list = _post_list.offset(skip).limit(limit).all()
+    post_list = _post_list[skip * limit : (skip + 1) * limit]
 
     # 한국 시차 적용
     for post in post_list:
         post.create_date += timedelta(hours=9)
 
-    return post_list
+    return total, post_list
 
 
 def get_post(db: Session, post_id: int, just_get=False):

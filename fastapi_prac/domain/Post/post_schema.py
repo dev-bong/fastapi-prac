@@ -25,3 +25,8 @@ class PostCreate(BaseModel):
         if not v or not v.strip():
             raise ValueError("빈 값은 허용되지 않습니다.")
         return v
+
+
+class PostList(BaseModel):
+    total: int = 0
+    post_list: list[Post] = []
