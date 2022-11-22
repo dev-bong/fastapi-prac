@@ -3,6 +3,7 @@ import datetime
 from pydantic import BaseModel, validator
 
 from domain.Comment.comment_schema import Comment
+from domain.User.user_schema import User
 
 
 class Post(BaseModel):
@@ -11,6 +12,7 @@ class Post(BaseModel):
     content: str
     create_date: datetime.datetime
     comments: list[Comment] = []
+    user: User | None
 
     class Config:
         orm_mode = True
