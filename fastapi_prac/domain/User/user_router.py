@@ -11,6 +11,7 @@ from starlette import status
 from database import get_db
 from domain.User import user_crud, user_schema
 from domain.User.user_crud import pwd_context
+from env_inform import SIGN_UP_CODE
 
 ACCESS_TOKEN_EXPIRE_MINUTES = 60 * 24  # 토큰 유효시간 (분 단위)
 SECRET_KEY = secrets.token_hex(32)  # 암호화시 사용하는 64자리 랜덤 문자열
@@ -25,6 +26,16 @@ router = APIRouter(
 @router.post("/create", status_code=status.HTTP_204_NO_CONTENT)
 def user_create(_user_create: user_schema.UserCreate, db: Session = Depends(get_db)):
     user = user_crud.get_existing_user(db, user_create=_user_create)
+    if SIGN_UP_CODE:
+        if _user_create.sign_up_code != SIGN_UP_CODE:
+            raise HTTPException(
+                status_code=status.HTTP_403_FORBIDDEN, detail="가입 코드가 잘못되었습니다."
+            )
+    else: #? SIGN_UP_CODE가 존재하지 않는 상태.. 회원가입 받지 않는다
+        raise HTTPException(
+            status_code=status.HTTP_403_FORBIDDEN, detail="현재 회원가입이 불가합니다."
+        )
+
     if user:
         raise HTTPException(
             status_code=status.HTTP_409_CONFLICT, detail="이미 존재하는 사용자입니다."

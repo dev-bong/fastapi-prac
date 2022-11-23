@@ -5,6 +5,7 @@ class UserCreate(BaseModel):
     username: str
     password1: str
     password2: str
+    sign_up_code: str
 
     @validator("username", "password1", "password2")
     def not_empty(cls, v):
