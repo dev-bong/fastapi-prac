@@ -19,6 +19,7 @@ class Comment(BaseModel):
     content: str
     create_date: datetime.datetime
     user: User | None
+    post_id: int
 
     class Config:
         orm_mode = True

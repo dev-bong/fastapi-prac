@@ -28,3 +28,9 @@ def comment_create(
     comment_crud.create_comment(
         db, post=post, comment_create=_comment_create, user=current_user
     )
+
+
+@router.get("/detail/{comment_id}", response_model=comment_schema.Comment)
+def comment_detail(comment_id: int, db: Session = Depends(get_db)):
+    comment = comment_crud.get_comment(db, comment_id=comment_id)
+    return comment
