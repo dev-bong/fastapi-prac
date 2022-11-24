@@ -39,5 +39,7 @@ def update_post(db: Session, db_post: Post, post_update: PostUpdate):
 
 
 def delete_post(db: Session, db_post: Post):
+    for com in db_post.comments: # 게시글 삭제 시 달린 댓글들도 모두 삭제
+        db.delete(com)
     db.delete(db_post)
     db.commit()
