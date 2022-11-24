@@ -14,7 +14,7 @@ def get_post_list(db: Session, skip: int = 0, limit: int = 10):
     return total, post_list
 
 
-def get_post(db: Session, post_id: int, just_get=False):
+def get_post(db: Session, post_id: int):
     post = db.query(Post).get(post_id)
     return post
 
