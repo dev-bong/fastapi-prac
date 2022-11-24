@@ -10,7 +10,7 @@ def create_comment(db: Session, post: Post, comment_create: CommentCreate, user:
     db_comment = Comment(
         post=post,
         content=comment_create.content,
-        create_date=datetime.utcnow(),
+        create_date=datetime.now(),
         user=user,
     )
     db.add(db_comment)

@@ -20,7 +20,7 @@ def post_list(db: Session = Depends(get_db), page: int = 0, size: int = 10):
 
 @router.get("/detail/{post_id}", response_model=post_schema.Post)
 def post_detail(post_id: int, db: Session = Depends(get_db)):
-    post = post_crud.get_post(db, post_id=post_id, just_get=True)
+    post = post_crud.get_post(db, post_id=post_id)
     return post
 
 
