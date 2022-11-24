@@ -13,6 +13,7 @@ class Post(Base):
     create_date = Column(DateTime, nullable=False)
     user_id = Column(Integer, ForeignKey("user.id"), nullable=True)
     user = relationship("User", backref="post_users")
+    modify_date = Column(DateTime, nullable=True)
 
 
 class Comment(Base):
@@ -25,6 +26,7 @@ class Comment(Base):
     post = relationship("Post", backref="comments")
     user_id = Column(Integer, ForeignKey("user.id"), nullable=True)
     user = relationship("User", backref="comment_users")
+    modify_date = Column(DateTime, nullable=True)
 
 class User(Base):
     __tablename__ = "user"

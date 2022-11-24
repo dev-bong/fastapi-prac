@@ -1,4 +1,4 @@
-from fastapi import APIRouter, Depends
+from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
 from starlette import status
 
@@ -31,3 +31,21 @@ def post_create(
     current_user: User = Depends(get_current_user),
 ):
     post_crud.create_post(db=db, post_create=_post_create, user=current_user)
+
+
+@router.put("/update", status_code=status.HTTP_204_NO_CONTENT)
+def post_update(
+    _post_update: post_schema.PostUpdate,
+    db: Session = Depends(get_db),
+    current_user: User = Depends(get_current_user),
+):
+    db_post = post_crud.get_post(db, post_id=_post_update.post_id)
+    if not db_post:
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST, detail="데이터를 찾을수 없습니다."  # ? 404?
+        )
+    if current_user.id != db_post.user.id:
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST, detail="수정 권한이 없습니다."  # ? 403?
+        )
+    post_crud.update_post(db=db, db_post=db_post, post_update=_post_update)
