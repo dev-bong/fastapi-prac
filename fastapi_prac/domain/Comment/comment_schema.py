@@ -23,3 +23,7 @@ class Comment(BaseModel):
 
     class Config:
         orm_mode = True
+
+
+class CommentDelete(BaseModel):
+    comment_id: int
