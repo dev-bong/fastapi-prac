@@ -13,6 +13,7 @@ class Post(BaseModel):
     create_date: datetime.datetime
     comments: list[Comment] = []
     user: User | None
+    modify_date: datetime.datetime | None = None
 
     class Config:
         orm_mode = True
