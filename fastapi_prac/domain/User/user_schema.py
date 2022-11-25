@@ -29,6 +29,12 @@ class Token(BaseModel):
 class User(BaseModel):
     id: int
     username: str
+    icon: str | None = None
 
     class Config:
         orm_mode = True
+
+
+class UserUpdate(BaseModel):
+    username: str
+    icon: str
